@@ -1,5 +1,12 @@
 {% extends "layout.html" %}
 {% block title %}Lender Portal - Home {% endblock %}
 {% block content %}
-Hello Worlds
+Generate Application CSV:
+<form action="/application.csv" method=post>
+    <input type=submit value=Generate>
+</form>  
+Generate Test CSV:
+<form action="/test.csv" method=post>
+    <input type=submit value=Generate>
+</form>
 {% endblock %}  

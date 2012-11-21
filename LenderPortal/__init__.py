@@ -7,7 +7,7 @@ import json
 import os
 import uuid
 import csv
-
+from db import DB
 # from db import DB
 
 # CONFIG
@@ -19,10 +19,12 @@ app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 # set the secret key.  keep this really secret:
 app.secret_key = '1-\xf1\xec\x10\x1eN@Zv\x95\x93\xe3\x0c\x96\xf8H&\xd8\xaa\xdc2\xec\xd9'
 
-# mydb = DB()
+mydb = DB()
 
 @app.route('/', methods=['GET', 'POST'])
 def dashboard():
+	q = mydb.query("SELECT o.name, o.stagename FROM sf_account a LEFT JOIN sf_opportunity o ON a.id = o.nearest_partner_account__c where a.name = 'Justine PETERSEN' limit 100")
+	print q
 	return render_template('home.html')
 
 #THIS WORKS
@@ -36,5 +38,5 @@ def generate_large_csv():
 #THIS SORT OF WORKS
 @app.route('/test.csv', methods=['GET', 'POST'])
 def generate_large_csv():
-	data = 'hello'
+	data = 'hello,alfie \nhello,john'
 	return Response(data, mimetype='text/csv')

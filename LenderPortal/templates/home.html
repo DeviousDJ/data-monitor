@@ -1,12 +1,162 @@
 {% extends "layout.html" %}
 {% block title %}Lender Portal - Home {% endblock %}
 {% block content %}
-Generate Application CSV:
-<form action="/application.csv" method=post>
-    <input type=submit value=Generate>
-</form>  
-Generate Test CSV:
-<form action="/test.csv" method=post>
-    <input type=submit value=Generate>
-</form>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner" id="navbar-inner-custom">
+    <div class="container-fluid">
+      <a class="brand" href="#">
+        AEO Lender Portal
+      </a>
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li>
+            <a href="#">
+              My Accounts
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+	<div class="row-fluid"</div>
+		<div class="span3 left-nav">
+			<ul class="nav nav-pills nav-stacked affix" id="tab">
+			    <li class="active">
+			    	<a href="#funnel" data-toggle="pill">Funnel</a>
+			    </li>
+			    <li>
+			    	<a href="#portfolio" data-toggle="pill">Portfolio</a>
+			    </li>
+			    <li>
+			    	<a href="#collections" data-toggle="pill">Collections</a>
+			    </li>
+		    </ul>
+		</div>
+		<div class="span9">
+			<h1> Welcome, Galen </h1>
+			<div class="tab-content">
+				<hr>
+				<div class="tab-pane active" id="funnel">
+					<div class="row-fluid">			
+						<div class="circleStats">
+							<div class="span2" onTablet="span4" onDesktop="span2">
+				            	<div class="circleStatsItem blue01">
+									<i class="fa-icon-thumbs-up"></i>
+									<span class="plus"></span>
+									<span class="percent"></span>
+				                	<input type="text" value={{ q3[0][1] }} class="blueCircle" />
+				            	</div>
+								<div class="box-small-title">Approval Rate</div>
+							</div>
+							<div class="span2" onTablet="span4" onDesktop="span2">
+				            	<div class="circleStatsItem blue01">
+				                	<i class="fa-icon-ok"></i>
+									<span class="plus"></span>
+									<span class="percent"></span>
+				                	<input type="text" value={{ q3[0][2] }} class="blueCircle01" />
+				            	</div>
+								<div class="box-small-title">Booking Rate</div>
+							</div>
+							<div class="span2" onTablet="span4" onDesktop="span2">
+				            	<div class="circleStatsItem blue01">
+				                	<i class="fa-icon-dashboard"></i>
+									<span class="plus"></span>
+									<span class="percent"></span>
+				                	<input type="text" value={{ q3[0][3] }} class="blueCircle03" />
+				            	</div>
+								<div class="box-small-title">Avg. On Deck Score</div>
+							</div>
+							<div class="span2" onTablet="span4" onDesktop="span2">
+				            	<div class="circleStatsItem blue01">
+				                	<i class="fa-icon-money"></i>
+									<span class="plus"></span>
+									<span class="percent">K</span>
+				                	<input type="text" value={{ q3[0][4] }} class="blueCircle01" />
+				            	</div>
+								<div class="box-small-title">Avg. Loan Amount</div>
+							</div>
+							<div class="span2" onTablet="span4" onDesktop="span2">
+				            	<div class="circleStatsItem blue01">
+				                	<i class="fa-icon-tag"></i>
+									<span class="plus"></span>
+									<span class="percent">%</span>
+				                	<input type="text" value={{ q3[0][5] }} class="blueCircle01" />
+				            	</div>
+								<div class="box-small-title">Avg. APR</div>
+							</div>
+				        </div>
+					</div>
+					<div class = "row-fluid"> 	
+						<div class="span4">
+							<h3>Month-to-Date</h3>
+							<hr>	
+							<div class="sparkLineStats">
+		                        <ul class="unstyled">
+		                            <li>
+										<span class="sparkLineStats1"></span> 
+										Applications: 
+										<span class="number">356</span>
+									</li>
+		                            <li><span class="sparkLineStats3"></span> 
+		                                Completed Apps:
+		                                <span class="number">781</span>
+		                            </li>
+		                            <li>
+		                                <span class="sparkLineStats2"></span>
+		                                Approvals:
+		                                <span class="number">252</span>
+		                            </li>
+		                            <li><span class="sparkLineStats3"></span> 
+		                                Booked Loans:
+		                                <span class="number">781</span>
+		                            </li>
+		                        </ul>
+		                    </div><!-- End .sparkStats -->
+	                    </div>
+	                    <div class="span4">
+	                    	<h3>Industry Breakdown</h3>
+	                    	<hr>
+	                    </div>
+	                    <div class="span4">
+	                    	<h3>Geographic Breakdown</h3>
+	                    	<hr>
+	                    </div>
+					</div>
+				</div>
+				<div class="tab-pane" id="portfolio">
+					<h3> Month-to-Date Performance</h3>
+					<h4>Total Apps: {{ q2[0][0] }}</h4> 
+				    <table class = "table table-bordered">
+				        <tr>
+				        	<th>Name</th>
+				        	<th>Stage</th>
+				        </tr>
+				    {% for business in q1%}
+				        {% if business.3 == 'Closed Won' %}
+				        <tr class="info">
+				        {% elif business.1 == 'Closed Lost: DQ (Ineligible)' %}
+				        <tr class="warning">
+				        {% endif %}
+					        <td>{{ business.2 }}</td>
+					        <td>{{ business.3 }}</td>
+				        </tr>
+				    {% else %}
+				        <h4>You haven't submitted any applications yet!</h4>
+				    {% endfor %}
+				    </table>
+				    <form id="download" action="/application.csv" method=POST>
+				    	<a class="btn btn-danger" href="#" onclick="$('#download').submit();">Download CSV</a>
+				  	</form>
+			  	</div>
+			  	<div class="tab-pane" id="collections">
+			  		Collections go here
+			  	</div>
+		  	</div>
+		</div>
+	</div>
+</div>
+
+<div class="row-fluid"></div>
 {% endblock %}  

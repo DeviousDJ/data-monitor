@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  {% block head %}
+  <meta charset="utf-8">
+  <meta name="description" content="A proof-of-concept Line of Credit application">
+  <meta name="author" content="umbhau">
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
+  <style>
+    body { padding-top: 60px; /* 60px to make the container go all the way
+    to the bottom of the topbar */ }
+  </style>  
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap-responsive.css') }}">
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+  <title>{% block title %}{% endblock %} - A Lender Portal Prototype</title>
+  {% endblock %}
+</head>
+<body>
+  <div id="content" class="wrapper">
+    {% block content %}{% endblock %}
+  </div>
+  {% block footer %}{% endblock %}
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.knob.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.sparkline.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/excanvas.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.flot.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.flot.pie.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.flot.resize.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.flot.stack.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+  <script type="text/javascript">
+    $(function() {
+        $("[rel='tooltip']").tooltip();
+    });
+  </script>
+</body>
+</html>

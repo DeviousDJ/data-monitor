@@ -37,6 +37,8 @@ def get_collection_counts(n_minutes=5):
  
     for collection in live_collections:
         yield (collection, get_col_count(collection, q))
+
+
 # from db import DB
 
 # CONFIG
